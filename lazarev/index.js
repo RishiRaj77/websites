@@ -41,3 +41,15 @@ function navAnimation() {
     })
 }
 navAnimation()
+var rightElem = document.querySelectorAll(".right-elem")
+
+rightElem.forEach(function(elem){
+    elem.addEventListener("mouseenter",function(){
+        console.log("hovered")
+    })
+    elem.addEventListener("mouseleave",function(){
+        console.log("unhovered")
+    })
+
+
+})
