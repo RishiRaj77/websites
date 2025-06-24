@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Explore Famous International Hill Stations</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<style>
+  /* Reset & base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f7fa;
+    color: #202124;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    color: #1a73e8;
+    text-decoration: none;
+    position: relative;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #1a73e8;
+    outline-offset: 2px;
+  }
+  a:hover,
+  a:focus {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    box-shadow: 0 4px 8px rgba(13, 71, 161, 0.3);
+    text-decoration: none;
+  }
+  img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  /* Container */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+  }
+  /* Header */
+  header {
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgb(60 64 67 / 0.10);
+  }
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 1.75rem;
+    color: #1a73e8;
+    user-select: none;
+    letter-spacing: 1.2px;
+  }
+  nav.desktop-nav {
+    display: none;
+  }
+  nav.desktop-nav a {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .menu-button {
+    background: none;
+    border: none;
+    color: #1a73e8;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+  .menu-button:hover,
+  .menu-button:focus {
+    color: #0d47a1;
+  }
+  .menu-button[aria-expanded="true"] {
+    color: #0d47a1;
+  }
+  /* Mobile nav */
+  nav.mobile-nav {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgb(13 71 161 / 0.15);
+  }
+  nav.mobile-nav.open {
+    max-height: 340px;
+  }
+  nav.mobile-nav a {
+    display: block;
+    padding: 16px 20px;
+    font-weight: 600;
+    border-top: 1px solid #f0f0f0;
+    color: #202124;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 0;
+  }
+  nav.mobile-nav a:first-child {
+    border-top: none;
+  }
+  nav.mobile-nav a:hover,
+  nav.mobile-nav a:focus {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+  }
+  /* Main content */
+  main {
+    flex-grow: 1;
+    padding: 40px 0 60px;
+    background-color: #fff;
+  }
+  h1, h2, h3 {
+    margin-top: 0;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    text-align: center;
+    color: #202124;
+    letter-spacing: 0.025em;
+  }
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #202124;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+  }
+  section {
+    margin-bottom: 56px;
+  }
+  /* Hill cards grid */
+  .hill-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hill-card {
+    background-color: #f9fafb;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgb(60 64 67 / 0.12);
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease;
+  }
+  .hill-card:hover,
+  .hill-card:focus-within {
+    box-shadow: 0 6px 20px rgb(26 115 232 / 0.4);
+    transform: translateY(-4px);
+  }
+  .hill-image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    flex-shrink: 0;
+  }
+  .hill-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hill-description {
+    color: #444;
+    font-size: 1rem;
+    flex-grow: 1;
+  }
+  /* Activities list */
+  .activities-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .activities-list li {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    user-select: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .activities-list li:hover,
+  .activities-list li:focus {
+    background-color: #bbdefb;
+    color: #0d47a1;
+    cursor: default;
+  }
+  /* Description lists (activities & best time) */
+  .dl-container {
+    max-width: 900px;
+    margin: 0 auto;
+    color: #3c4043;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .dl-container dt {
+    font-weight: 600;
+    margin-top: 24px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #1a73e8;
+    font-size: 1.1rem;
+  }
+  .dl-container dd {
+    margin-left: 0;
+  }
+  /* Footer */
+  footer {
+    background-color: #f1f3f4;
+    color: #5f6368;
+    font-size: 0.875rem;
+    padding: 24px 0;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+    user-select: none;
+  }
+  footer a {
+    color: #1a73e8;
+    padding: 0 6px;
+  }
+  /* Responsive breakpoints */
+  @media (min-width: 640px) {
+    nav.desktop-nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    nav.mobile-nav {
+      display: none !important;
+    }
+    .menu-button {
+      display: none;
+    }
+    main {
+      padding: 48px 0 64px;
+    }
+    .hill-list {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 36px;
+    }
+    .hill-image {
+      height: 200px;
+      border-radius: 12px 12px 0 0;
+    }
+  }
+  @media (min-width: 1024px) {
+    .hill-list {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    .hill-image {
+      height: 220px;
+    }
+  }
+  @media (min-width: 1440px) {
+    .container {
+      max-width: 1300px;
+      padding: 0 40px;
+    }
+    main {
+      padding: 56px 0 72px;
+    }
+  }
+</style>
+</head>
+<body>
+<header role="banner">
+  <div class="header-inner container">
+    <a href="#" class="logo" aria-label="Famous International Hill Stations Home">International HillStation Explorer</a>
+    <nav class="desktop-nav" role="navigation" aria-label="Primary navigation">
+      <a href="land.html" tabindex="0">Home</a>
+      <a href="#popular" tabindex="0">Popular</a>
+      <a href="#activities" tabindex="0">Activities</a>
+      <a href="#best-time" tabindex="0">Best Time to Visit</a>
+      <a href="#about" tabindex="0">About</a>
+    </nav>
+    <button class="menu-button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="material-icons" aria-hidden="true">menu</span>
+    </button>
+  </div>
+  <nav id="mobile-menu" class="mobile-nav" role="navigation" aria-label="Mobile navigation" hidden>
+    <a href="#" tabindex="-1">Home</a>
+    <a href="#popular" tabindex="-1">Popular</a>
+    <a href="#activities" tabindex="-1">Activities</a>
+    <a href="#best-time" tabindex="-1">Best Time to Visit</a>
+    <a href="#about" tabindex="-1">About</a>
+  </nav>
+</header>
+
+<main id="maincontent">
+  <h1 tabindex="0">Explore Famous International Hill Stations</h1>
+  <section id="popular" aria-labelledby="popular-heading">
+    <h2 id="popular-heading">Popular Hill Stations</h2>
+    <div class="hill-list">
+      <article class="hill-card" tabindex="0" aria-label="Swiss Alps hill station">
+        <div class="hill-image" role="img" aria-label="Snowy mountains and chalets in the Swiss Alps">
+          <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e6b43398-52b2-4632-b557-d81ee9fad44a.png" alt="Snowy mountains and chalets in the Swiss Alps" />
+        </div>
+        <div class="hill-content">
+          <h3>Swiss Alps, Switzerland</h3>
+          <p class="hill-description">World-famous mountain range known for its stunning peaks, skiing, hiking, and charming Alpine villages.</p>
+          <ul class="activities-list" aria-label="Popular activities in Swiss Alps">
+            <li>Skiing</li>
+            <li>Hiking</li>
+            <li>Mountain Villages</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="hill-card" tabindex="0" aria-label="Banff National Park hill station">
+        <div class="hill-image" role="img" aria-label="Turquoise lakes surrounded by pine trees and mountains in Banff National Park, Canada">
+          <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6265a0a8-ae7a-42b8-806b-59c9639e56eb.png" alt="Turquoise lakes and pine trees in Banff National Park, Canada" />
+        </div>
+        <div class="hill-content">
+          <h3>Banff National Park, Canada</h3>
+          <p class="hill-description">Scenic Canadian Rockies destination famous for turquoise lakes, wildlife, and outdoor adventures.</p>
+          <ul class="activities-list" aria-label="Popular activities in Banff">
+            <li>Wildlife Viewing</li>
+            <li>Hiking</li>
+            <li>Lake Tours</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="hill-card" tabindex="0" aria-label="Shimla hill station">
+        <div class="hill-image" role="img" aria-label="Forest and snowy mountains in Shimla, India">
+          <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1fc54d1b-f6f0-4029-94f3-1b3138c5ca1f.png" alt="Forest and snowy mountains in Shimla, India" />
+        </div>
+        <div class="hill-content">
+          <h3>Shimla, India</h3>
+          <p class="hill-description">Popular hill station in India known for colonial architecture, hilltop views, and cool weather.</p>
+          <ul class="activities-list" aria-label="Popular activities in Shimla">
+            <li>Shopping</li>
+            <li>Mountain Walks</li>
+            <li>Historic Sites</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="hill-card" tabindex="0" aria-label="Zermatt hill station">
+        <div class="hill-image" role="img" aria-label="Village and Matterhorn mountain in Zermatt, Switzerland">
+          <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b4740025-fb65-4ab9-bba7-800cb8a0a154.png" alt="Village and Matterhorn mountain in Zermatt, Switzerland" />
+        </div>
+        <div class="hill-content">
+          <h3>Zermatt, Switzerland</h3>
+          <p class="hill-description">Nestled beneath the Matterhorn, a picturesque mountain resort famous for skiing and hiking.</p>
+          <ul class="activities-list" aria-label="Popular activities in Zermatt">
+            <li>Skiing</li>
+            <li>Mountaineering</li>
+            <li>Scenic Train Rides</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="hill-card" tabindex="0" aria-label="Queenstown hill station">
+        <div class="hill-image" role="img" aria-label="Lakeside town with surrounding mountains in Queenstown, New Zealand">
+          <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/459b232d-5a71-440d-bfda-95c85835d95a.png" alt="Lakeside town with surrounding mountains in Queenstown, New Zealand" />
+        </div>
+        <div class="hill-content">
+          <h3>Queenstown, New Zealand</h3>
+          <p class="hill-description">Adventure capital for bungee jumping, hiking, and watersports, surrounded by stunning lake and mountain scenery.</p>
+          <ul class="activities-list" aria-label="Popular activities in Queenstown">
+            <li>Bungee Jumping</li>
+            <li>Hiking</li>
+            <li>Jet Boating</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="hill-card" tabindex="0" aria-label="Santorini hill station">
+        <div class="hill-image" role="img" aria-label="White buildings atop cliffs overlooking the sea in Santorini, Greece">
+          <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9ddb3d02-c79c-4250-a1a0-f0a75178f8ca.png" alt="White buildings atop cliffs overlooking the sea in Santorini, Greece" />
+        </div>
+        <div class="hill-content">
+          <h3>Santorini, Greece</h3>
+          <p class="hill-description">Famous for stunning clifftop views, whitewashed buildings, and beautiful sunsets over the Aegean Sea.</p>
+          <ul class="activities-list" aria-label="Popular activities in Santorini">
+            <li>Sunset Viewing</li>
+            <li>Boat Tours</li>
+            <li>Wine Tasting</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="activities" aria-labelledby="activities-heading">
+    <h2 id="activities-heading">Activities & Attractions</h2>
+    <dl class="dl-container">
+      <dt><span class="material-icons" aria-hidden="true" style="font-size:1.25rem;">terrain</span> Adventure Sports</dt>
+      <dd>Popular international hill stations offer skiing, rock climbing, paragliding, hiking, and more for adventure enthusiasts.</dd>
+      <dt><span class="material-icons" aria-hidden="true" style="font-size:1.25rem;">local_florist</span> Scenic Nature</dt>
+      <dd>Explore breathtaking landscapes featuring glaciers, lakes, mountains, and flora unique to each region.</dd>
+      <dt><span class="material-icons" aria-hidden="true" style="font-size:1.25rem;">spa</span> Relaxation & Wellness</dt>
+      <dd>Many hill stations offer luxury resorts, hot springs, and wellness retreats to help you unwind.</dd>
+    </dl>
+  </section>
+
+  <section id="best-time" aria-labelledby="best-time-heading">
+    <h2 id="best-time-heading">Best Time to Visit</h2>
+    <dl class="dl-container">
+      <dt><span class="material-icons" aria-hidden="true" style="font-size:1.25rem;">wb_sunny</span> Spring & Summer (March to August)</dt>
+      <dd>Ideal for most hill stations to enjoy hiking, sightseeing and vibrant nature in mild to warm conditions.</dd>
+      <dt><span class="material-icons" aria-hidden="true" style="font-size:1.25rem;">ac_unit</span> Winter (December to February)</dt>
+      <dd>Best period for winter sports like skiing and snowboarding at alpine and mountainous resorts.</dd>
+      <dt><span class="material-icons" aria-hidden="true" style="font-size:1.25rem;">umbrella</span> Rainy Season (Varies by region)</dt>
+      <dd>Some hill stations receive monsoon rains; useful to check local climate before planning.</dd>
+    </dl>
+  </section>
+
+  <section id="about" aria-labelledby="about-heading" style="max-width: 650px; margin: 0 auto; color: #5f6368; text-align: center;">
+    <h2 id="about-heading">About International HillStation Explorer</h2>
+    <p>Your go-to guide for discovering the most beautiful hill stations worldwide. Whether seeking adventure or relaxation, find the perfect destination here.</p>
+    <p>Designed with modern responsive and accessible web standards for seamless browsing across devices.</p>
+  </section>
+</main>
+
+<footer role="contentinfo">
+  <p>© 2024 International HillStation Explorer. All rights reserved. • <a href="#maincontent">Skip to main content</a></p>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuButton = document.querySelector('.menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuButton.addEventListener('click', () => {
+    const expanded = menuButton.getAttribute('aria-expanded') === 'true';
+    menuButton.setAttribute('aria-expanded', !expanded);
+    if(!expanded) {
+      mobileMenu.classList.add('open');
+      mobileMenu.removeAttribute('hidden');
+      mobileMenu.querySelectorAll('a').forEach(link => link.tabIndex = 0);
+    } else {
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('hidden', '');
+      mobileMenu.querySelectorAll('a').forEach(link => link.tabIndex = -1);
+    }
+  });
+
+  // Close mobile menu on link click
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuButton.setAttribute('aria-expanded', false);
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('hidden', '');
+      mobileMenu.querySelectorAll('a').forEach(link => link.tabIndex = -1);
+    });
+  });
+</script>
+</body>
+</html>
+
